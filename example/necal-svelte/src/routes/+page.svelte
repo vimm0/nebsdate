@@ -39,6 +39,8 @@
 	const englishShortDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 	$: data = "";
+	$: prevdata = "";
+	$: upcomingdata = "";
 	$: title = "";
 	$: subtitle = "";
 
@@ -56,6 +58,7 @@
 	let numRows;
 	let firstDayOfMonth = 0;
 	let daysInMonth = 0;
+	let lastCell = 0;
 
 	console.log(todayBs);
 	$: if (data) {
@@ -89,7 +92,7 @@
 				.then((res) => res.json())
 				.then((json) => {
 					data = json;
-					console.log(json);
+					console.log("current month ", json);
 					firstDayOfMonth = data[0].day;
 					daysInMonth = data[data.length - 1].date;
 					numRows = Math.ceil((firstDayOfMonth + daysInMonth) / 7);
@@ -103,18 +106,61 @@
 		}
 	});
 
+	function previousYearMonthState(yearMonth) {
+		if (yearMonth) {
+			const [year, month] = yearMonth.split("-");
+			currentYearMonth = { year, month };
+			fetch(`/src/lib/data/${yearMonth}.json`)
+				.then((res) => res.json())
+				.then((json) => {
+					prevdata = json;
+					console.log("prevmonth ", json);
+				})
+				.catch(console.error)
+				.finally(() => {});
+		}
+	}
+	function upcomingYearMonthState(yearMonth) {
+		if (yearMonth) {
+			const [year, month] = yearMonth.split("-");
+			currentYearMonth = { year, month };
+			fetch(`/src/lib/data/${yearMonth}.json`)
+				.then((res) => res.json())
+				.then((json) => {
+					upcomingdata = json;
+					console.log("upcoming month ", json);
+					lastCell = numRows * 7 - (firstDayOfMonth + daysInMonth);
+					console.log(lastCell);
+				})
+				.catch(console.error)
+				.finally(() => {});
+		}
+	}
+
 	function padZero(n) {
 		return +n < 10 ? "0" + n : n + "";
 	}
 
-	function getDinData(rowIndex, colIndex){
-		return data[rowIndex * 7 + colIndex - 1]
+	function getDinData(rowIndex, colIndex) {
+		return data[rowIndex * 7 + colIndex - 1];
+	}
+	function getPrevMonthDinData(rowIndex, colIndex) {
+		return prevdata[prevdata.length - colIndex - firstDayOfMonth];
+	}
+
+	function getupcomingMonthDinData(index) {
+		return prevdata[index];
 	}
 
 	function setToday() {
 		const { year, month } = getBS(today.year, today.month, today.date);
 		if (year && month) {
-			currentYearMonthState.set(`${year}-${padZero(month)}`);
+			let currentYearMonth = `${year}-${padZero(month)}`;
+			let previousYearMonth = `${year}-${padZero(month - 1)}`;
+			let upcomingYearMonth = `${year}-${padZero(month + 1)}`;
+			currentYearMonthState.set(currentYearMonth);
+			previousYearMonthState(previousYearMonth);
+			upcomingYearMonthState(upcomingYearMonth);
 		} else {
 			location.hash = "";
 		}
@@ -152,7 +198,7 @@
 			{#each Array(7) as _, colIndex}
 				<div class="card-date">
 					{#if rowIndex * 7 + colIndex > 0 && rowIndex * 7 + colIndex <= daysInMonth}
-							<Din
+						<!-- <Din
 								day={constants.daysShort[getDinData(rowIndex, colIndex).day][locale]}
 								events={(getDinData(rowIndex, colIndex).events || [])
 									.map((x) => x.name[locale])
@@ -209,7 +255,64 @@
 									})
 								)}
 								inDays={getInDays(getDinData(rowIndex, colIndex).ad)}
+							/> -->
+						<Din
+							isCurrent={true}
+							date={locale === "ne"
+								? en2neNumbers(
+										getDinData(rowIndex, colIndex).date
+								  )
+								: getDinData(rowIndex, colIndex).date}
+							isHoliday={getDinData(rowIndex, colIndex).gh ||
+								getDinData(rowIndex, colIndex).day === 6}
+							isToday={isToday(getDinData(rowIndex, colIndex).ad)}
+						/>
+					{:else if rowIndex * 7 + colIndex <= 0}
+						{#if prevdata.length > 0}
+							<Din
+								isCurrent={false}
+								date={locale === "ne"
+									? en2neNumbers(
+											getPrevMonthDinData(
+												rowIndex,
+												colIndex
+											).date
+									  )
+									: getPrevMonthDinData(rowIndex, colIndex)
+											.date}
+								isHoliday={getPrevMonthDinData(
+									rowIndex,
+									colIndex
+								).gh ||
+									getPrevMonthDinData(rowIndex, colIndex)
+										.day === 6}
+								isToday={isToday(
+									getPrevMonthDinData(rowIndex, colIndex).ad
+								)}
 							/>
+						{/if}
+					{:else if lastCell > 0}
+						<!-- {#each Array(lastCell) as _, lastIndex} -->
+							<!-- {lastIndex} -->
+							<!-- {getupcomingMonthDinData(lastIndex).date} -->
+							{rowIndex} - {colIndex}
+							<!-- <Din
+								isCurrent={false}
+								date={locale === "ne"
+									? en2neNumbers(
+											getupcomingMonthDinData(lastIndex)
+												.date
+									  )
+									: getupcomingMonthDinData(lastIndex).date}
+								isHoliday={getupcomingMonthDinData(lastIndex)
+									.gh ||
+									getupcomingMonthDinData(lastIndex).day ===
+										6}
+								isToday={isToday(
+									getupcomingMonthDinData(lastIndex).ad
+								)}
+							/> -->
+						<!-- {/each} -->
 					{/if}
 				</div>
 			{/each}

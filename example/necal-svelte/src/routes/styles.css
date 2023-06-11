@@ -86,6 +86,8 @@ select {
   --header-color: #5850ec;
   --holiday-color: #f44336;
   --holiday-bg-color: rgba(244, 67, 54, 0.08);
+  --nocurrent-color: #ababab;
+  --nocurrent-bg-color: #f0f0f0;
   --today-color: #4caf50;
   --today-bg-color: rgba(76, 175, 80, 0.08);
   --day-opacity: 0.08;
