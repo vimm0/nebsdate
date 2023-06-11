@@ -27,8 +27,8 @@
     export let birthnames;
 </script>
 
-<!-- <div class={`card date ${!isToday && isHoliday ? 'holiday' : isToday ? 'today' : ''}`} data-day={day}> -->
-<div class={`card date ${!isToday && isHoliday ? 'holiday' : isToday ? 'today' : ''}`}>
+<div class={`card date ${!isToday && isHoliday ? 'holiday' : isToday ? 'today' : ''}`} data-day={day}>
+<!-- <div class={`card date ${!isToday && isHoliday ? 'holiday' : isToday ? 'today' : ''}`}> -->
     <p class="event">
         {eventParts[0]}<small
             >{eventParts.length > 1 ? ` (${eventParts[1]}` : ""}</small
