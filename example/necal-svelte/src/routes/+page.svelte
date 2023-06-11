@@ -60,7 +60,67 @@
 	let daysInMonth = 0;
 	let lastCell = 0;
 
-	console.log(todayBs);
+	function IsToday(data, colIndex) {
+		return isToday(data(colIndex).ad);
+	}
+	function IsHoliday(data, colIndex) {
+		return (
+			data(colIndex).gh ||
+			data(colIndex).day === 6
+		);
+	}
+	function getDate(data, colIndex) {
+		return locale === "ne"
+			? en2neNumbers(data(colIndex).date)
+			: data(colIndex).date;
+	}
+	// upcoming month dates
+	// function lastCellIsToday(colIndex) {
+	// 	return isToday(getupcomingMonthDinData(colIndex).ad);
+	// }
+	// function lastCellIsHoliday(colIndex) {
+	// 	return (
+	// 		getupcomingMonthDinData(colIndex).gh ||
+	// 		getupcomingMonthDinData(colIndex).day === 6
+	// 	);
+	// }
+	// function lastCellDate(colIndex) {
+	// 	return locale === "ne"
+	// 		? en2neNumbers(getupcomingMonthDinData(colIndex).date)
+	// 		: getupcomingMonthDinData(colIndex).date;
+	// }
+	// // Previous month dates
+	// function prevCellIsToday(colIndex) {
+	// 	return isToday(getPrevMonthDinData(colIndex).ad);
+	// }
+
+	// function prevCellIsHoliday(colIndex) {
+	// 	return (
+	// 		getPrevMonthDinData(colIndex).gh ||
+	// 		getPrevMonthDinData(colIndex).day === 6
+	// 	);
+	// }
+	// function prevCellDate(colIndex) {
+	// 	return locale === "ne"
+	// 		? en2neNumbers(getPrevMonthDinData(colIndex).date)
+	// 		: getPrevMonthDinData(colIndex).date;
+	// }
+	// current month dates
+	function cellIsToday(rowIndex, colIndex) {
+		return isToday(getDinData(rowIndex, colIndex).ad);
+	}
+	function cellIsHoliday(rowIndex, colIndex) {
+		return (
+			getDinData(rowIndex, colIndex).gh ||
+			getDinData(rowIndex, colIndex).day === 6
+		);
+	}
+	function cellDate(rowIndex, colIndex) {
+		return locale === "ne"
+			? en2neNumbers(getDinData(rowIndex, colIndex).date)
+			: getDinData(rowIndex, colIndex).date;
+	}
+	// console.log(todayBs);
 	$: if (data) {
 		const dateAD = new Date(data[0].ad);
 		title = `${constants.monthsBS[+currentYearMonth.month - 1][locale]} ${
@@ -130,7 +190,7 @@
 					upcomingdata = json;
 					console.log("upcoming month ", json);
 					lastCell = numRows * 7 - (firstDayOfMonth + daysInMonth);
-					console.log(lastCell);
+					// console.log(lastCell);
 				})
 				.catch(console.error)
 				.finally(() => {});
@@ -144,12 +204,13 @@
 	function getDinData(rowIndex, colIndex) {
 		return data[rowIndex * 7 + colIndex - 1];
 	}
-	function getPrevMonthDinData(rowIndex, colIndex) {
+	function getPrevMonthDinData(colIndex) {
 		return prevdata[prevdata.length - colIndex - firstDayOfMonth];
 	}
 
-	function getupcomingMonthDinData(index) {
-		return prevdata[index];
+	function getupcomingMonthDinData(weekday) {
+		// console.log(upcomingdata.filter(obj => obj.day === weekday));
+		return upcomingdata.filter((obj) => obj.day === weekday)[0];
 	}
 
 	function setToday() {
@@ -258,61 +319,26 @@
 							/> -->
 						<Din
 							isCurrent={true}
-							date={locale === "ne"
-								? en2neNumbers(
-										getDinData(rowIndex, colIndex).date
-								  )
-								: getDinData(rowIndex, colIndex).date}
-							isHoliday={getDinData(rowIndex, colIndex).gh ||
-								getDinData(rowIndex, colIndex).day === 6}
-							isToday={isToday(getDinData(rowIndex, colIndex).ad)}
+							date={cellDate(rowIndex, colIndex)}
+							isHoliday={cellIsHoliday(rowIndex, colIndex)}
+							isToday={cellIsToday(rowIndex, colIndex)}
 						/>
 					{:else if rowIndex * 7 + colIndex <= 0}
 						{#if prevdata.length > 0}
 							<Din
 								isCurrent={false}
-								date={locale === "ne"
-									? en2neNumbers(
-											getPrevMonthDinData(
-												rowIndex,
-												colIndex
-											).date
-									  )
-									: getPrevMonthDinData(rowIndex, colIndex)
-											.date}
-								isHoliday={getPrevMonthDinData(
-									rowIndex,
-									colIndex
-								).gh ||
-									getPrevMonthDinData(rowIndex, colIndex)
-										.day === 6}
-								isToday={isToday(
-									getPrevMonthDinData(rowIndex, colIndex).ad
-								)}
+								date={getDate(getPrevMonthDinData, colIndex)}
+								isHoliday={IsHoliday(getPrevMonthDinData, colIndex)}
+								isToday={IsToday(getPrevMonthDinData, colIndex)}
 							/>
 						{/if}
 					{:else if lastCell > 0}
-						<!-- {#each Array(lastCell) as _, lastIndex} -->
-							<!-- {lastIndex} -->
-							<!-- {getupcomingMonthDinData(lastIndex).date} -->
-							{rowIndex} - {colIndex}
-							<!-- <Din
-								isCurrent={false}
-								date={locale === "ne"
-									? en2neNumbers(
-											getupcomingMonthDinData(lastIndex)
-												.date
-									  )
-									: getupcomingMonthDinData(lastIndex).date}
-								isHoliday={getupcomingMonthDinData(lastIndex)
-									.gh ||
-									getupcomingMonthDinData(lastIndex).day ===
-										6}
-								isToday={isToday(
-									getupcomingMonthDinData(lastIndex).ad
-								)}
-							/> -->
-						<!-- {/each} -->
+						<Din
+							isCurrent={false}
+							date={getDate(getupcomingMonthDinData, colIndex)}
+							isHoliday={IsHoliday(getupcomingMonthDinData, colIndex)}
+							isToday={IsToday(getupcomingMonthDinData, colIndex)}
+						/>
 					{/if}
 				</div>
 			{/each}
