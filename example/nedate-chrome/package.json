@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "vite-plugin-crx-mv3": "^0.1.3"
+  }
+}

@@ -9,3 +9,4 @@ Nepali BS Date
 ![nepali calculator image](./images/1.png "a title")
 
 [http://nepcal.com/index.php](http://nepcal.com/index.php)
+[https://codegino.com/blog/svelte-chromium-extension](https://codegino.com/blog/svelte-chromium-extension)
