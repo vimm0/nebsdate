@@ -7,3 +7,5 @@ Nepali BS Date
 #### Website
 ##### necal-svelte
 ![nepali calculator image](./images/1.png "a title")
+
+[http://nepcal.com/index.php](http://nepcal.com/index.php)
