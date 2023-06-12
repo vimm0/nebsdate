@@ -3,3 +3,7 @@ Nepali BS Date
 
 #### TODO
 - add old and new dates in blank dates
+
+#### Website
+##### necal-svelte
+![nepali calculator image](./images/1.png "a title")
