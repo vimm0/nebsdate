@@ -1,31 +1,31 @@
 <script>
-    // export let day;
-    // export let tithi;
-    // export let events;
-    // export let panchanga;
-    // export let dateAd;
+    export let day;
+    export let tithi;
+    export let events;
+    export let panchanga;
+    export let dateAd;
     export let isCurrent;
     export let isToday;
-    // export let eventParts;
+    export let eventParts;
     export let date;
     export let isHoliday;
-    // export let firstTithi;
-    // export let chandrama;
-    // export let chandramaPrefix;
-    // export let yearNe;
-    // export let monthNe;
-    // export let dayNe;
-    // export let dateNe;
-    // export let inDays;
-    // export let saits;
-    // export let sunrise;
-    // export let sunset;
-    // export let ad;
-    // export let monthNs;
-    // export let yearNs;
-    // export let monthNsNe;
-    // export let yearNsNe;
-    // export let birthnames;
+    export let firstTithi;
+    export let chandrama;
+    export let chandramaPrefix;
+    export let yearNe;
+    export let monthNe;
+    export let dayNe;
+    export let dateNe;
+    export let inDays;
+    export let saits;
+    export let sunrise;
+    export let sunset;
+    export let ad;
+    export let monthNs;
+    export let yearNs;
+    export let monthNsNe;
+    export let yearNsNe;
+    export let birthnames;
 </script>
 
 <!-- <div class={`card date ${!isToday && isHoliday ? 'holiday' : isToday ? 'today' : ''}`} data-day={day}> -->
@@ -35,24 +35,27 @@
     } ${isCurrent ? "current" : "nocurrent"}`}
 >
     <!-- <div class={`card date}`}> -->
-    <p class="event">
-        <!-- {eventParts[0]} -->
-        <small>
-            <!-- {eventParts.length > 1 ? ` (${eventParts[1]}` : ""} -->
-        </small>
-    </p>
+    {#if eventParts}
+        <p class="event">
+            {eventParts[0]}
+            <small>
+                {eventParts.length > 1 ? ` (${eventParts[1]}` : ""}
+            </small>
+        </p>
+    {/if}
+
     <h2>{date}</h2>
     <div class="tithi-date">
         <div class="tithi">
             <small>
-                <!-- {firstTithi ? chandrama : ""} -->
+                {firstTithi ? chandrama : ""}
             </small>
             <span>
-                <!-- {tithi} -->
+                {tithi}
             </span>
         </div>
         <span class="date-es">
-            <!-- {dateAd} -->
+            {dateAd}
         </span>
     </div>
 </div>
@@ -136,7 +139,7 @@
     }
     .date.nocurrent {
         transition: background-color 500ms ease;
-        background-color: var(--nocurrent-bg-color);
+        background-color: var(--nocurrent-bg-color) !important;
     }
     .date.nocurrent::after,
     .date.nocurrent .event,
@@ -144,11 +147,18 @@
     .date.nocurrent .tithi-date {
         color: var(--nocurrent-color) !important;
     }
+
+    .date.holiday.nocurrent::after,
+    .date.holiday.nocurrent .event,
+    .date.holiday.nocurrent h2,
+    .date.holiday.nocurrent .tithi-date {
+        color: #f4433647 !important;
+    }
     .date.holiday::after,
     .date.holiday .event,
     .date.holiday h2,
     .date.holiday .tithi-date {
-        color: var(--holiday-color) !important;
+        color: var(--holiday-color);
     }
     .holiday::after,
     .today::after {
