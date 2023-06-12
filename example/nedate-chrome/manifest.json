@@ -11,13 +11,17 @@
         "128": "/images/icon-128.png"
       }
     },
+    "content_security_policy": {
+      "extension_pages": "script-src 'self'; object-src 'self'",
+      "sandbox": "sandbox allow-scripts"
+    },
     "permissions": [
-      "activeTab"
+      "activeTab",
+      "scripting"
     ],
     "icons": {
-        "16": "/images/icon-16.png",
-        "48": "/images/icon-48.png",
-        "128": "/images/icon-128.png"
+      "16": "/images/icon-16.png",
+      "48": "/images/icon-48.png",
+      "128": "/images/icon-128.png"
     }
   }
-  

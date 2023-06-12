@@ -1,0 +1,21 @@
+.calculator {
+    width: 200px;
+    padding: 10px;
+  }
+  
+  input[type="text"] {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+  }
+  
+  .number, .operator, .clear, .calculate {
+    padding: 10px;
+    text-align: center;
+  }
+  
