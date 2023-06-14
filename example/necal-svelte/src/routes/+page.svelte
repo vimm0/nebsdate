@@ -7,7 +7,7 @@
 	import getBS from "../lib/utils/getBS";
 	import Din from "../components/Din.svelte";
 	import { _ } from "../i18n";
-
+	import "./styles.css";
 	const DEFAULT_LANG = "ne";
 	const nepaliLongDays = [
 		"आइतबार",
@@ -89,7 +89,7 @@
 			const [year, month] = yearMonth.split("-");
 			currentYearMonth = { year, month };
 			// loading = true;
-			fetch(`/src/lib/data/${yearMonth}.json`)
+			fetch(`/data/${yearMonth}.json`)
 				.then((res) => res.json())
 				.then((json) => {
 					data = json;
@@ -119,7 +119,7 @@
 		if (yearMonth) {
 			const [year, month] = yearMonth.split("-");
 			currentYearMonth = { year, month };
-			fetch(`/src/lib/data/${yearMonth}.json`)
+			fetch(`/data/${yearMonth}.json`)
 				.then((res) => res.json())
 				.then((json) => {
 					prevdata = json;
@@ -134,7 +134,7 @@
 		if (yearMonth) {
 			const [year, month] = yearMonth.split("-");
 			currentYearMonth = { year, month };
-			fetch(`/src/lib/data/${yearMonth}.json`)
+			fetch(`/data/${yearMonth}.json`)
 				.then((res) => res.json())
 				.then((json) => {
 					upcomingdata = json;
@@ -181,10 +181,10 @@
 		} = data[colIndex];
 
 		return {
-			day: constants.daysShort[day][locale],
-			events: (events || []).map((x) => x.name[locale]).join("; "),
-			panchanga,
-			ad,
+			// day: constants.daysShort[day][locale],
+			// events: (events || []).map((x) => x.name[locale]).join("; "),
+			// panchanga,
+			// ad,
 			eventParts: events.length
 				? events[0].name[locale].split(" (")
 				: [""],
@@ -193,35 +193,35 @@
 			firstTithi: tithi === 0 || tithi === 23,
 			chandrama:
 				constants.chandramas[Math.floor(parseInt(chandrama))][locale],
-			chandramaPrefix:
-				chandrama > parseInt(chandrama)
-					? constants.extraMonth[locale]
-					: "",
+			// chandramaPrefix:
+			// 	chandrama > parseInt(chandrama)
+			// 		? constants.extraMonth[locale]
+			// 		: "",
 			isHoliday: gh || day === 6,
 			isToday: isToday(ad),
-			yearNe: en2neNumbers(+currentYearMonth.year),
-			monthNe: constants.monthsBS[+currentYearMonth.month - 1].ne,
-			monthNs: constants.monthNS[nsMonth][locale],
-			yearNs: locale === "ne" ? en2neNumbers(nsYear) : nsYear,
-			monthNsNe: constants.monthNS[nsMonth].ne,
-			yearNsNe: en2neNumbers(nsYear),
-			dayNe: constants.days[day].ne,
-			dateNe: en2neNumbers(date),
+			// yearNe: en2neNumbers(+currentYearMonth.year),
+			// monthNe: constants.monthsBS[+currentYearMonth.month - 1].ne,
+			// monthNs: constants.monthNS[nsMonth][locale],
+			// yearNs: locale === "ne" ? en2neNumbers(nsYear) : nsYear,
+			// monthNsNe: constants.monthNS[nsMonth].ne,
+			// yearNsNe: en2neNumbers(nsYear),
+			// dayNe: constants.days[day].ne,
+			// dateNe: en2neNumbers(date),
 			dateAd: parseInt(ad.split("-")[2]),
-			saits: saits.map((x) => constants.saits[x][locale]).join("; "),
-			sunrise:
-				locale === "ne" ? panchanga.sunrise : ne2enNumbers("०६:१२"),
-			sunset:
-				locale === "ne"
-					? panchanga.sunset
-					: ne2enNumbers(panchanga.sunset),
-			birthnames: (panchanga.birthname || []).map(
-				({ dt, nakshatra }) => ({
-					nakshatra,
-					dt: locale === "ne" ? en2neNumbers(dt) : dt,
-				})
-			),
-			inDays: getInDays(ad),
+			// saits: saits.map((x) => constants.saits[x][locale]).join("; "),
+			// sunrise:
+			// 	locale === "ne" ? panchanga.sunrise : ne2enNumbers("०६:१२"),
+			// sunset:
+			// 	locale === "ne"
+			// 		? panchanga.sunset
+			// 		: ne2enNumbers(panchanga.sunset),
+			// birthnames: (panchanga.birthname || []).map(
+			// 	({ dt, nakshatra }) => ({
+			// 		nakshatra,
+			// 		dt: locale === "ne" ? en2neNumbers(dt) : dt,
+			// 	})
+			// ),
+			// inDays: getInDays(ad),
 			// data, // Include the original data object if needed
 		};
 	}

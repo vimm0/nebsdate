@@ -1,8 +1,8 @@
 <script>
-    export let day;
+    // export let day;
     export let tithi;
-    export let events;
-    export let panchanga;
+    // export let events;
+    // export let panchanga;
     export let dateAd;
     export let isCurrent;
     export let isToday;
@@ -11,21 +11,21 @@
     export let isHoliday;
     export let firstTithi;
     export let chandrama;
-    export let chandramaPrefix;
-    export let yearNe;
-    export let monthNe;
-    export let dayNe;
-    export let dateNe;
-    export let inDays;
-    export let saits;
-    export let sunrise;
-    export let sunset;
-    export let ad;
-    export let monthNs;
-    export let yearNs;
-    export let monthNsNe;
-    export let yearNsNe;
-    export let birthnames;
+    // export let chandramaPrefix;
+    // export let yearNe;
+    // export let monthNe;
+    // export let dayNe;
+    // export let dateNe;
+    // export let inDays;
+    // export let saits;
+    // export let sunrise;
+    // export let sunset;
+    // export let ad;
+    // export let monthNs;
+    // export let yearNs;
+    // export let monthNsNe;
+    // export let yearNsNe;
+    // export let birthnames;
 </script>
 
 <!-- <div class={`card date ${!isToday && isHoliday ? 'holiday' : isToday ? 'today' : ''}`} data-day={day}> -->
@@ -186,15 +186,15 @@
         display: inline-block;
         font-weight: bold;
     }
-    .panchang .key {
+    /* .panchang .key {
         width: 84px;
-    }
+    } */
     .inline {
         display: inline;
     }
-    .sun svg {
+    /* .sun svg {
         stroke: transparent;
-    }
+    } */
 
     .mb-8 {
         margin-bottom: 2rem !important;
@@ -205,9 +205,9 @@
         overflow: hidden;
         background-color: var(--bg-color);
     }
-    .row.border [class*="col"] {
+    /* .row.border [class*="col"] {
         border: 1px solid #666;
-    }
+    } */
     .col-2 {
         flex: 0 0 16.666667%;
         max-width: 16.666667%;
