@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Nepali Date",
-  "version": "1.0",
+  "version": "1.0.0",
   "description": "Nepali BS date, calendar",
   "action": {
     "default_popup": "src/popup/index.html",
