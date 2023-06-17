@@ -1,27 +1,22 @@
-  {
-    "manifest_version": 3,
-    "name": "Nepali Date",
-    "version": "1.0",
-    "description": "Nepali BS date, calendar",
-    "action": {
-      "default_popup": "popup.html",
-      "default_icon": {
-        "16": "/images/icon-16.png",
-        "48": "/images/icon-48.png",
-        "128": "/images/icon-128.png"
-      }
-    },
-    "content_security_policy": {
-      "extension_pages": "script-src 'self'; object-src 'self'",
-      "sandbox": "sandbox allow-scripts"
-    },
-    "permissions": [
-      "activeTab",
-      "scripting"
-    ],
-    "icons": {
-      "16": "/images/icon-16.png",
-      "48": "/images/icon-48.png",
-      "128": "/images/icon-128.png"
+{
+  "manifest_version": 3,
+  "name": "Nepali Date",
+  "version": "1.0",
+  "description": "Nepali BS date, calendar",
+  "action": {
+    "default_popup": "src/popup/index.html",
+    "default_icon": {
+      "16": "static/images/icon-16.png",
+      "48": "static/images/icon-48.png",
+      "128": "static/images/icon-128.png"
     }
+  },
+  "permissions": [
+    "activeTab"
+  ],
+  "icons": {
+    "16": "static/images/icon-16.png",
+    "48": "static/images/icon-48.png",
+    "128": "static/images/icon-128.png"
   }
+}
