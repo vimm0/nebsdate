@@ -11,8 +11,11 @@
       "128": "static/images/icon-128.png"
     }
   },
-  "permissions": [
-    "activeTab"
+  "web_accessible_resources": [
+    {
+      "resources": ["static/data/*.json"],
+      "matches": ["<all_urls>"]
+    }
   ],
   "icons": {
     "16": "static/images/icon-16.png",

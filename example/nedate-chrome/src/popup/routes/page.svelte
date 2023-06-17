@@ -73,8 +73,7 @@
 	// @ts-ignore
 	const dateBs = `${todayBs.year}-${todayBs.month}-${todayBs.date}`;
 
-
-		$: if (data) {
+	$: if (data) {
 		// @ts-ignore
 		const dateAD = new Date(data[0].ad);
 		title = `${constants.monthsBS[+currentYearMonth.month - 1][locale]} ${
@@ -88,23 +87,25 @@
 	}
 	$: isToday = (ad) => {
 		return (
-			ad
-				.split("-")
-				.filter(
-					(x, i) =>
-						// @ts-ignore
-						[today.year, today.month, today.date][i] === parseInt(x)
-				).length === 3
+			ad.split("-").filter(
+				(x, i) =>
+					// @ts-ignore
+					[today.year, today.month, today.date][i] === parseInt(x)
+			).length === 3
 		);
 	};
-// @ts-ignore
-		$: getInDays = (ad) => {};
+	// @ts-ignore
+	$: getInDays = (ad) => {};
+	// let getJsonFile = (yearMonth) =>
+	// 	chrome.extension.getURL(`/static/data/${yearMonth}.json`);
+	let getJsonFile = (yearMonth) => `/static/data/${yearMonth}.json`;
+
 	currentYearMonthState.subscribe((yearMonth) => {
 		if (yearMonth) {
 			const [year, month] = yearMonth.split("-");
 			currentYearMonth = { year, month };
 			// loading = true;
-			fetch(`/static/data/${yearMonth}.json`)
+			fetch(getJsonFile(yearMonth))
 				.then((res) => res.json())
 				.then((json) => {
 					data = json;
@@ -132,11 +133,12 @@
 		}
 	});
 
+	// let getJsonFile = function (yearMonth) => {`/static/data/${yearMonth}.json`}
 	function previousYearMonthState(yearMonth) {
 		if (yearMonth) {
 			const [year, month] = yearMonth.split("-");
 			currentYearMonth = { year, month };
-			fetch(`/static/data/${yearMonth}.json`)
+			fetch(getJsonFile(yearMonth))
 				.then((res) => res.json())
 				.then((json) => {
 					prevdata = json;
@@ -151,7 +153,7 @@
 		if (yearMonth) {
 			const [year, month] = yearMonth.split("-");
 			currentYearMonth = { year, month };
-			fetch(`/static/data/${yearMonth}.json`)
+			fetch(getJsonFile(yearMonth))
 				.then((res) => res.json())
 				.then((json) => {
 					upcomingdata = json;
@@ -248,6 +250,7 @@
 		};
 	}
 </script>
+
 <main>
 	<div class="header-row" style="display: flow-root;">
 		<div class="nepali-month-year">
@@ -260,9 +263,7 @@
 	<div class="navigation" />
 	<div class="grid">
 		{#each nepaliShortDays as neDe}
-			<div
-				class="day-name"
-			>
+			<div class="day-name">
 				{neDe}
 			</div>
 		{/each}
@@ -270,11 +271,11 @@
 	<div class="grid">
 		{#each Array(numRows) as _, rowIndex}
 			{#each Array(7) as _, colIndex}
-					{#if rowIndex * 7 + colIndex > 0 && rowIndex * 7 + colIndex <= daysInMonth}
-						<Din
-							isCurrent={true}
-							{...dinProps(data, rowIndex * 7 + colIndex - 1)}
-						/>
+				{#if rowIndex * 7 + colIndex > 0 && rowIndex * 7 + colIndex <= daysInMonth}
+					<Din
+						isCurrent={true}
+						{...dinProps(data, rowIndex * 7 + colIndex - 1)}
+					/>
 					<!-- {:else if rowIndex * 7 + colIndex <= 0}
 						{#if prevdata.length > 0}
 							<Din
@@ -295,7 +296,7 @@
 								0
 							)}
 						/> -->
-					{/if}
+				{/if}
 			{/each}
 		{/each}
 	</div>
