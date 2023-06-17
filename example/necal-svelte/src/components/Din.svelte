@@ -235,4 +235,18 @@
     .py-1 {
         padding-top: 0.25rem !important;
     }
+    @media (max-width: 575.98px) {
+        .date .event,
+        .date .tithi-date {
+            min-height: 3rem;
+            font-size: 0.5rem;
+        }
+        .date-es {
+            font-size: 0.5rem;
+    }
+
+        .card {
+            padding: 0.5rem;
+        }
+    }
 </style>

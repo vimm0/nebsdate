@@ -55,7 +55,7 @@ img {
 }
 
 /* Natural flow and rhythm in articles by default */
-article > * + * {
+article>*+* {
   margin-top: 1em;
 }
 
@@ -144,6 +144,7 @@ svg {
   visibility: visible !important;
   opacity: 1 !important;
 }
+
 .modal {
   opacity: 0;
   visibility: hidden;
@@ -172,12 +173,12 @@ svg {
   display: none;
 }
 
-.modal-state:checked + .modal {
+.modal-state:checked+.modal {
   opacity: 1;
   visibility: visible;
 }
 
-.modal-state:checked + .modal .modal__inner {
+.modal-state:checked+.modal .modal__inner {
   top: 0;
 }
 
@@ -233,6 +234,7 @@ svg {
     height: 100%;
     box-sizing: border-box;
   }
+
   .modal__inner .panel {
     display: block !important;
     padding-top: 2rem !important;
@@ -240,9 +242,11 @@ svg {
     margin-left: -2em !important;
     margin-right: -2em !important;
   }
+
   .modal__inner .accordion {
     display: none !important;
   }
+
   .icon-btn.modal__close {
     position: fixed;
     bottom: 2em;
@@ -311,9 +315,11 @@ svg {
   /* icon size, then gradient */
   background-size: 0.65em auto, 100%;
 }
+
 [data-theme='dark'] .outlined-select {
   background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMCAxMCIgaGVpZ2h0PSIxMjIiIHdpZHRoPSIxMjIiPjxwYXRoIGQ9Ik0wIDIuNSA1IDcuNSAxMCAyLjVaIiBmaWxsPSIjRkZGRkZGIi8+PC9zdmc+Cg==');
 }
+
 /* Hide arrow icon in IE browsers */
 .outlined-select::-ms-expand {
   display: none;
@@ -366,9 +372,11 @@ svg {
   margin-right: -15px;
   margin-left: -15px;
 }
+
 .text-center {
   text-align: center !important;
 }
+
 .text-right {
   text-align: right !important;
 }
@@ -390,11 +398,50 @@ svg {
   pointer-events: none;
 }
 
-.active.accordion > svg {
+.active.accordion>svg {
   transform: rotate(180deg);
 }
 
 .active,
 .accordion:hover {
   background-color: var(--bg-color);
+}
+
+.day-name {
+  text-align: center;
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.nepali-month-year {
+  float: left;
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.english-month-year {
+  float: right;
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+@media (max-width: 575.98px) {
+  .grid {
+    grid-template-columns: repeat(7, minmax(42px, 1fr));
+    grid-gap: 0.2rem;
+    margin-bottom: 1em;
+  }
+
+  .grid>* {
+    font-size: 0.4rem;
+  }
+
+  .day-name,
+  .nepali-month-year,
+  .english-month-year {
+    font-size: 0.9rem;
+  }
+  .tithi > small, .event {
+    display: none;
+  }
 }

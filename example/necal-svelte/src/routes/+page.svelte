@@ -1,13 +1,13 @@
 <script>
 	import constants from "../lib/utils/constants";
-	import { yearsState, currentYearMonthState } from "../store";
-	import { onDestroy, onMount } from "svelte";
+	import { currentYearMonthState } from "../store";
+	import { onMount } from "svelte";
 	import en2neNumbers from "../lib/utils/en2neNumbers";
-	import ne2enNumbers from "../lib/utils/ne2enNumbers";
 	import getBS from "../lib/utils/getBS";
 	import Din from "../components/Din.svelte";
 	import { _ } from "../i18n";
 	import "./styles.css";
+
 	const DEFAULT_LANG = "ne";
 	const nepaliLongDays = [
 		"आइतबार",
@@ -57,8 +57,9 @@
 		month: today.getMonth() + 1,
 		date: today.getDate(),
 	};
-	const date = `${today.year}-${today.month}-${today.date}`;
+
 	const todayBs = getBS(today.year, today.month, today.date);
+	const date = `${today.year}-${today.month}-${today.date}`;
 	const dateBs = `${todayBs.year}-${todayBs.month}-${todayBs.date}`;
 
 
@@ -99,11 +100,7 @@
 					numRows = Math.ceil((firstDayOfMonth + daysInMonth) / 7);
 				})
 				.catch(console.error)
-				.finally(() => {
-					// console.log("final");
-					// loading = false;
-					// scrollTodayIntoView();
-				});
+				.finally(() => {});
 		}
 	});
 	onMount(() => {
@@ -229,10 +226,10 @@
 
 <main>
 	<div class="header-row" style="display: flow-root;">
-		<div style="float: left; font-weight: bold;font-size: 2rem;">
+		<div class="nepali-month-year">
 			{title}
 		</div>
-		<div style="float: right; font-weight: bold;font-size: 2rem;">
+		<div class="english-month-year">
 			{subtitle}
 		</div>
 	</div>
@@ -240,21 +237,21 @@
 	<div class="grid">
 		{#each nepaliShortDays as neDe}
 			<div
-				class="card-date"
-				style="text-align:center;font-weight: bold;font-size: 2rem;"
+				class="day-name"
 			>
 				{neDe}
 			</div>
 		{/each}
+	</div>
+	<div class="grid">
 		{#each Array(numRows) as _, rowIndex}
 			{#each Array(7) as _, colIndex}
-				<div class="card-date">
 					{#if rowIndex * 7 + colIndex > 0 && rowIndex * 7 + colIndex <= daysInMonth}
 						<Din
 							isCurrent={true}
 							{...dinProps(data, rowIndex * 7 + colIndex - 1)}
 						/>
-					{:else if rowIndex * 7 + colIndex <= 0}
+					<!-- {:else if rowIndex * 7 + colIndex <= 0}
 						{#if prevdata.length > 0}
 							<Din
 								isCurrent={false}
@@ -273,9 +270,8 @@
 								),
 								0
 							)}
-						/>
+						/> -->
 					{/if}
-				</div>
 			{/each}
 		{/each}
 	</div>
