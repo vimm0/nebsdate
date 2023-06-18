@@ -1,4 +1,3 @@
-
 import sys
 
 from PyQt5.QtCore import QLocale
@@ -8,14 +7,9 @@ app = QApplication(sys.argv)
 
 calendar = QCalendarWidget()
 calendar.setLocale(QLocale("ne_NP"))
-
-calendar.monthShown()
-
 calendar.show()
 
 sys.exit(app.exec_())
-
-
 
 
 # Add Nepali months and days
