@@ -1,31 +1,7 @@
-# import sys
-# from PyQt5.QtCore import QDate, Qt
-# from PyQt5.QtWidgets import QApplication, QMainWindow, QCalendarWidget
-
-# class CalendarWindow(QMainWindow):
-#     def __init__(self):
-#         super().__init__()
-
-#         self.setWindowTitle("Calendar")
-#         self.setGeometry(100, 100, 400, 300)
-
-#         self.calendar = QCalendarWidget(self)
-#         self.calendar.setGeometry(10, 10, 380, 280)
-#         self.calendar.setGridVisible(True)
-#         self.calendar.selectionChanged.connect(self.date_selected)
-
-#     def date_selected(self):
-#         selected_date = self.calendar.selectedDate()
-#         print("Selected Date:", selected_date.toString(Qt.ISODate))
-
-# if __name__ == '__main__':
-#     app = QApplication(sys.argv)
-#     window = CalendarWindow()
-#     window.show()
-#     sys.exit(app.exec_())
 import sys
 from PyQt5.QtCore import Qt, QDate, QLocale
 from PyQt5.QtWidgets import QApplication, QCalendarWidget, QLabel, QVBoxLayout, QWidget
+
 
 # Conversion functions between Gregorian and Bikram Sambat calendars
 def to_bikram_sambat(gregorian_date):
@@ -54,6 +30,7 @@ def from_bikram_sambat(bs_date):
 
     return QDate(gregorian_year, gregorian_month, gregorian_day)
 
+
 class CalendarWidget(QWidget):
     def __init__(self):
         super().__init__()
@@ -64,6 +41,9 @@ class CalendarWidget(QWidget):
         self.calendar.setVerticalHeaderFormat(QCalendarWidget.NoVerticalHeader)
         self.calendar.setGridVisible(True)
         self.calendar.selectionChanged.connect(self.updateDateLabel)
+        # QLocale.setDefault(QLocale.India)
+        # QLocale.setDefault(QLocale(QLocale.Hebrew, QLocale.Israel))
+        self.calendar.setHorizontalHeaderFormat(QCalendarWidget.LongDayNames)
 
         self.dateLabel = QLabel(self)
         self.dateLabel.setAlignment(Qt.AlignCenter)
@@ -86,11 +66,16 @@ class CalendarWidget(QWidget):
 
     def convertToNepali(self, date_str):
         nepali_locale = QLocale(QLocale.Nepali, QLocale.Nepal)
+        # QCalendarWidget.LongDayNames
+        # self.calendar.horizontalHeaderFormat()
+        self.calendar.setHorizontalHeaderFormat(QCalendarWidget.LongDayNames)
+
         converted_date = nepali_locale.toDate(date_str, "yyyy MM dd")
         day_name = nepali_locale.dayName(converted_date.dayOfWeek(), QLocale.LongFormat)
         month_name = nepali_locale.monthName(converted_date.month(), QLocale.LongFormat)
         nepali_date_str = f"{day_name} {converted_date.day()} {month_name} {converted_date.year()}"
         return nepali_date_str
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
