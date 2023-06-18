@@ -8,8 +8,11 @@ Nepali BS Calendar
 - add old and new dates in blank dates
 
 #### Website
-##### necal-svelte
-![nepali calculator image](./images/1.png "a title")
+##### [necal-svelte](./example/necal-svelte/)
+![nepali calculator image](./images/1.png "nepali calculator image")
+![](./images/2.webp)
+![](./images/3.png)
 
-[http://nepcal.com/index.php](http://nepcal.com/index.php)
-[https://codegino.com/blog/svelte-chromium-extension](https://codegino.com/blog/svelte-chromium-extension)
+#### Reference
+- [http://nepcal.com/index.php](http://nepcal.com/index.php)
+- [https://codegino.com/blog/svelte-chromium-extension](https://codegino.com/blog/svelte-chromium-extension)
