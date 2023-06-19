@@ -57,6 +57,78 @@ class TestDateMethods(unittest.TestCase):
         )
         assert ndt == dt
 
+
+class TestDatetimeMethods(unittest.TestCase):
+
+    def test_init(self):
+        dt = bs.datetime(2033, 2, 10, 10, 5, 30, 123456)
+        assert dt.year == 2033
+        assert dt.month == 2
+        assert dt.day == 10
+        assert dt.hour == 10
+        assert dt.minute == 5
+        assert dt.second == 30
+        assert dt.microsecond == 123456
+
+    def test_now(self):
+        dt = bs.datetime.now()
+        assert bs.MIN_YEAR <= dt.year <= bs.MAX_YEAR
+        assert 1 <= dt.day <= 32
+        assert 1 <= dt.month <= 12
+        assert 0 <= dt.hour <= 23
+        assert 0 <= dt.minute <= 59
+        assert 0 <= dt.second <= 59
+        assert 0 <= dt.microsecond <= 999999
+        assert isinstance(dt.tzinfo, bs.UTC0545)
+
+    def test_utcnow(self):
+        dt = bs.datetime.now()
+        utc_dt = dt.utcnow()
+        utc_545 = utc_dt + datetime.timedelta(hours=5, minutes=45)
+        assert dt.year == utc_545.year
+        assert dt.month == utc_545.month
+        assert dt.day == utc_545.day
+        assert dt.hour == utc_545.hour
+        assert dt.minute == utc_545.minute
+
+    def test_timestamp(self):
+        dt = bs.datetime(2078, 2, 23)
+        ad_dt = datetime.datetime(2021, 6, 6, tzinfo=bs.UTC0545())
+        assert dt.timestamp() == ad_dt.timestamp()
+
+
+class TestStrftime(unittest.TestCase):
+
+    def test_strftime_date(self):
+        dt = bs.date(2077, 6, 4)
+        assert dt.strftime("%m/%d/%Y") == "06/04/2077"
+        assert dt.strftime("%A of %B %d %y") == "Sunday of Aswin 04 77"
+        assert dt.strftime("%a %b") == "Sun Asw"
+
+        dt = bs.date(2077, 2, 32)
+        assert dt.strftime("%d-%m-%Y") == "32-02-2077"
+
+    def test_strftime_datetime(self):
+        dt = bs.datetime(2052, 10, 29, 15, 22, 50, 2222)
+        assert dt.strftime("%m/%d/%Y %I:%M:%S.%f %p %a %A") == "10/29/2052 03:22:50.002222 PM Mon Monday"
+
+
+class TestStrptime(unittest.TestCase):
+
+    def test_strptime_date(self):
+        assert bs.datetime.strptime("2011-10-11", "%Y-%m-%d").date() == bs.date(2011, 10, 11)
+        assert bs.datetime.strptime("2077-02-32", "%Y-%m-%d").date() == bs.date(2077, 2, 32)
+
+    def test_strptime_datetime(self):
+        assert bs.datetime.strptime("Asar 23 2025 10:00:00",
+                                    "%B %d %Y %H:%M:%S") == bs.datetime(2025, 3, 23, 10, 0, 0)
+
+    def test_strptime_year_special_case(self):
+        assert bs.datetime.strptime("89", "%y") == bs.datetime(2089, 1, 1)
+        assert bs.datetime.strptime("90", "%y") == bs.datetime(1990, 1, 1)
+        assert bs.datetime.strptime("00", "%y") == bs.datetime(2000, 1, 1)
+
+
 # import random
 # from nepali_datetime import NepaliDateTime
 #
