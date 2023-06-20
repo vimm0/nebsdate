@@ -4,7 +4,6 @@ import time as _time
 import math as _math
 import datetime as _actual_datetime
 
-
 from .config import CALENDAR_PATH, MIN_DATE, MAX_DATE, REFERENCE_DATE_AD
 
 MIN_YEAR = MIN_DATE['year']
@@ -284,6 +283,34 @@ def _cmperror(x, y):
 
 def _cmp(x, y):
     return 0 if x == y else 1 if x > y else -1
+
+
+def _is_leap(year):
+    "year -> 1 if leap year, else 0."
+    return year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)
+
+
+def to_vikram_year(gregorian_date: _actual_datetime.date):
+    """
+    Convert gregorian year to vikram year.
+    :param gregorian_date: Actual english date from datetime lib
+    :return:
+    """
+    current_date = gregorian_date
+    # Get the current year in the Gregorian calendar
+    gregorian_year = current_date.year
+
+    # Calculate the corresponding Vikram Samvat year
+    if current_date.month < 4 or (current_date.month == 4 and current_date.day <= 13):
+        ne_year = gregorian_year + 56
+    else:
+        ne_year = gregorian_year + 57
+    return ne_year
+
+
+def is_vikram_leap_year(nepali_date):
+    gregorian_date = nepali_date.to_datetime_date()
+    return _is_leap(gregorian_date.year)
 
 
 class UTC0545(_actual_datetime.tzinfo):

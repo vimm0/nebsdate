@@ -10,6 +10,7 @@ RANDOM_CONVERSION_MAPS = [
     {'bs': {'year': 2076, 'month': 6, 'day': 27}, 'ad': {'year': 2019, 'month': 10, 'day': 14}},
     {'bs': {'year': 2077, 'month': 4, 'day': 4}, 'ad': {'year': 2020, 'month': 7, 'day': 19}}
 ]
+# print(dir(bs))
 
 
 class TestSample(unittest.TestCase):
@@ -127,6 +128,56 @@ class TestStrptime(unittest.TestCase):
         assert bs.datetime.strptime("89", "%y") == bs.datetime(2089, 1, 1)
         assert bs.datetime.strptime("90", "%y") == bs.datetime(1990, 1, 1)
         assert bs.datetime.strptime("00", "%y") == bs.datetime(2000, 1, 1)
+
+
+class TestNepaliDateTime(unittest.TestCase):
+    def test_conversion_to_nepali(self):
+        # Test conversion from Gregorian to Nepali
+        gregorian_date = (2023, 6, 19)
+        expected_nepali_date = (2080, 3, 4)
+        ne_date = bs.date.from_datetime_date(from_date=datetime.date(*gregorian_date))
+        nepali_date = (ne_date.year, ne_date.month, ne_date.day)
+        self.assertEqual(nepali_date, expected_nepali_date)
+
+    # def test_conversion_to_gregorian(self):
+    #     # Test conversion from Nepali to Gregorian
+    #     nepali_date = (2080, 3, 4)
+    #     expected_gregorian_date = (2023, 6, 19)
+    #     gregorian_date = bs.date.to_datetime_date(*nepali_date)
+    #     self.assertEqual(gregorian_date, expected_gregorian_date)
+
+    def test_month_name(self):
+        # Test getting the name of a Nepali month
+        nepali_date = (2080, 3, 5)
+        expected_month_name = 'Asar'
+        ne_date = bs.date(*nepali_date)
+        month_name = ne_date.strftime('%B')
+        self.assertEqual(month_name, expected_month_name)
+
+    def test_vikram_year(self):
+        gregorian_date_1 = (2023, 6, 19)
+        gregorian_date_2 = (2023, 4, 19)
+        gregorian_date_3 = (2023, 4, 12)
+        gregorian_date_4 = (2023, 1, 12)
+        en_date_1 = datetime.date(*gregorian_date_1)
+        en_date_2 = datetime.date(*gregorian_date_2)
+        en_date_3 = datetime.date(*gregorian_date_3)
+        en_date_4 = datetime.date(*gregorian_date_4)
+        # expected_vikram_year = 2080
+        self.assertEqual(bs.to_vikram_year(en_date_1), 2080)
+        self.assertEqual(bs.to_vikram_year(en_date_2), 2080)
+        self.assertEqual(bs.to_vikram_year(en_date_3), 2079)
+        self.assertEqual(bs.to_vikram_year(en_date_4), 2079)
+
+    def test_is_leap_year(self):
+        # Test checking if a Nepali year is a leap year
+        gregorian_date_1 = (2023, 6, 19)
+        gregorian_date_2 = (2024, 6, 19)
+
+        bs_date_1 = bs.date.from_datetime_date(from_date=datetime.date(*gregorian_date_1))
+        bs_date_2 = bs.date.from_datetime_date(from_date=datetime.date(*gregorian_date_2))
+        self.assertFalse(bs.is_vikram_leap_year(bs_date_1))
+        self.assertTrue(bs.is_vikram_leap_year(bs_date_2))
 
 
 # import random
