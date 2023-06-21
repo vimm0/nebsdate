@@ -55,17 +55,18 @@
 	today = {
 		year: today.getFullYear(),
 		month: today.getMonth() + 1,
+		// month: 6,
 		date: today.getDate(),
 	};
+	console.log(today);
 
 	const todayBs = getBS(today.year, today.month, today.date);
 	const date = `${today.year}-${today.month}-${today.date}`;
 	const dateBs = `${todayBs.year}-${todayBs.month}-${todayBs.date}`;
 
-
 	$: if (data) {
 		const dateAD = new Date(data[0].ad);
-		title = `${constants.monthsBS[+currentYearMonth.month - 1][locale]} ${
+		title = `${constants.monthsBS[currentYearMonth.month - 1][locale]} ${
 			locale === DEFAULT_LANG
 				? en2neNumbers(currentYearMonth.year)
 				: currentYearMonth.year
@@ -115,7 +116,7 @@
 	function previousYearMonthState(yearMonth) {
 		if (yearMonth) {
 			const [year, month] = yearMonth.split("-");
-			currentYearMonth = { year, month };
+			// currentYearMonth = { year, month };
 			fetch(`/data/${yearMonth}.json`)
 				.then((res) => res.json())
 				.then((json) => {
@@ -129,8 +130,8 @@
 
 	function upcomingYearMonthState(yearMonth) {
 		if (yearMonth) {
-			const [year, month] = yearMonth.split("-");
-			currentYearMonth = { year, month };
+			// const [year, month] = yearMonth.split("-");
+			// currentYearMonth = { year, month };
 			fetch(`/data/${yearMonth}.json`)
 				.then((res) => res.json())
 				.then((json) => {
@@ -151,9 +152,19 @@
 	function setToday() {
 		const { year, month } = getBS(today.year, today.month, today.date);
 		if (year && month) {
+			// console.log(month)
 			let currentYearMonth = `${year}-${padZero(month)}`;
-			let previousYearMonth = `${year}-${padZero(month - 1)}`;
-			let upcomingYearMonth = `${year}-${padZero(month + 1)}`;
+			// let previousYearMonth = `${year}-${padZero(month - 1)}`;
+			
+			let previousYearMonth =
+				month == 1
+					? `${year - 1}-${padZero(12)}`
+					: `${year}-${padZero(month - 1)}`;
+
+			let upcomingYearMonth =
+				month == 12
+					? `${year + 1}-${padZero(1)}`
+					: `${year}-${padZero(month + 1)}`;
 			currentYearMonthState.set(currentYearMonth);
 			previousYearMonthState(previousYearMonth);
 			upcomingYearMonthState(upcomingYearMonth);
@@ -182,6 +193,7 @@
 			// events: (events || []).map((x) => x.name[locale]).join("; "),
 			// panchanga,
 			// ad,
+			gridColumn: day + 1, // determines the placing of column onto grid (0-index)
 			eventParts: events.length
 				? events[0].name[locale].split(" (")
 				: [""],
@@ -235,45 +247,58 @@
 	</div>
 	<div class="navigation" />
 	<div class="grid">
-		{#each nepaliShortDays as neDe}
-			<div
-				class="day-name"
-			>
-				{neDe}
+		{#each nepaliShortDays as neDay}
+			<div class="day-name">
+				{neDay}
 			</div>
 		{/each}
 	</div>
 	<div class="grid">
 		{#each Array(numRows) as _, rowIndex}
 			{#each Array(7) as _, colIndex}
-					{#if rowIndex * 7 + colIndex > 0 && rowIndex * 7 + colIndex <= daysInMonth}
-						<Din
-							isCurrent={true}
-							{...dinProps(data, rowIndex * 7 + colIndex - 1)}
-						/>
-					<!-- {:else if rowIndex * 7 + colIndex <= 0}
-						{#if prevdata.length > 0}
+				{#if rowIndex * 7 + colIndex > 0 && rowIndex * 7 + colIndex <= daysInMonth}
+				<!-- {colIndex}	 -->
+				<Din
+						isCurrent={true}
+						{...dinProps(data, rowIndex * 7 + colIndex - 1)}
+					/>
+				{:else if rowIndex * 7 + colIndex <= 0}
+					{#if prevdata.length > 0}
+						{#each Array(firstDayOfMonth) as _, dayIndex}
 							<Din
 								isCurrent={false}
 								{...dinProps(
 									prevdata,
-									prevdata.length - colIndex - firstDayOfMonth
+									prevdata.length + dayIndex - firstDayOfMonth
 								)}
 							/>
-						{/if}
-					{:else if lastCell > 0}
-						<Din
-							isCurrent={false}
-							{...dinProps(
-								upcomingdata.filter(
-									(obj) => obj.day === colIndex
-								),
-								0
-							)}
-						/> -->
+						{/each}
 					{/if}
+				<!-- {:else if numRows == rowIndex + 1 && lastCell > 0}
+				{numRows}{rowIndex}{colIndex}
+				{#each Array(lastCell) as _, dayIndex}
+					<Din
+						isCurrent={false}
+						{...dinProps(
+							upcomingdata.filter((obj) => obj.date === dayIndex+1),
+							0
+						)}
+					/>
+					{/each} -->
+				{/if}
 			{/each}
 		{/each}
+		{#if lastCell > 0}
+		{#each Array(lastCell) as _, dayIndex}
+			<Din
+				isCurrent={false}
+				{...dinProps(
+					upcomingdata.filter((obj) => obj.date === dayIndex+1),
+					0
+				)}
+			/>
+			{/each}
+		{/if}
 	</div>
 </main>
 

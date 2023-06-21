@@ -11,6 +11,7 @@
     export let isHoliday;
     export let firstTithi;
     export let chandrama;
+    export let gridColumn;
     // export let chandramaPrefix;
     // export let yearNe;
     // export let monthNe;
@@ -33,7 +34,7 @@
     class={`card date ${
         !isToday && isHoliday ? "holiday" : isToday ? "today" : ""
     } ${isCurrent ? "current" : "nocurrent"}`}
->
+ style="grid-column: {gridColumn}">
     <!-- <div class={`card date}`}> -->
     {#if eventParts}
         <p class="event">
