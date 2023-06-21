@@ -205,5 +205,39 @@ class TestDateConfig(unittest.TestCase):
         self.assertTrue(MAX_DATE['day'] >= MIN_DATE['day'])
 
 
+class BSTestCase(unittest.TestCase):
+
+    def test_days_in_month(self):
+        self.assertEqual(days_in_month(2079, 1), 30)
+        self.assertEqual(days_in_month(2079, 2), 29)
+        self.assertEqual(days_in_month(2079, 4), 32)  # Invalid month
+
+    def test_days_before_year(self):
+        self.assertEqual(days_before_year(2079), 743175)
+        self.assertEqual(days_before_year(2080), 743541)
+
+    def test_days_before_month(self):
+        self.assertEqual(days_before_month(2079, 3), 74)
+        self.assertEqual(days_before_month(2079, 4), 104)  # Invalid month
+
+    def test_ymd2ord(self):
+        self.assertEqual(ymd2ord(2079, 1, 1), 743176)
+        self.assertEqual(ymd2ord(2079, 6, 15), 743320)
+
+    def test_ord2ymd(self):
+        self.assertEqual(ord2ymd(743176), (2079, 1, 1))
+        self.assertEqual(ord2ymd(743320), (2079, 6, 15))
+
+    def test_to_bs(self):
+        dt = datetime(2023, 6, 21)
+        bs_date = to_bs(dt)
+        self.assertEqual(bs_date, (2079, 3, 7))
+
+    def test_to_ad(self):
+        bs_date = (2079, 3, 7)
+        dt = to_ad(bs_date)
+        self.assertEqual(dt, datetime(2023, 6, 21))
+
+
 if __name__ == '__main__':
     unittest.main()

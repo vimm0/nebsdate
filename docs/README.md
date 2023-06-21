@@ -1,0 +1,6 @@
+#### Time in Nepal
+Nepal Time is 5hr and 45min (5.75 hr / +5:45 Nepal time zone) ahead of GMT. Nepal Time shows Current Time in Nepal and Date from anywhere in the world. GMT is called Greenwich Mean Time because it is measured from the Greenwich Meridian Line also called Prime Meridian (0 degrees longitude) at the Roayl observatery in Greenwich London . It is the plase where all the time zones are calculated. Greenwich Meridian Time is espceially used by bodies associated with the United Kingdom like BBC World Service, The Roayl Navy, The Met office. GMT is same as UTC(Coordinated Universal Time). Even in our Nepali time and date, Nepali Calendar I have used GMT as a reference point of time. Some people use the names Z or Zulu and UTC or Universal Time Coordinates instead of GMT. GMT, Z, Zulu and UTC all mean the same thing - the current time at the Prime Meridian.
+
+#### Nepali Panchang
+Nepali Panchang / नेपाली पंचांग : With Daily Nepali Panchang Patro, you will get to know various information on Tithi, Nakshatra, Yoga, Karana, Vaar. Also Nepal Sambat date, Chandra Rashi, Ritu, Aayan, Sunrise/Sunset and Moonrise/Moonset information for Nepal are included with precise planetary position.
+
