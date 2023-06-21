@@ -139,12 +139,12 @@ class TestNepaliDateTime(unittest.TestCase):
         nepali_date = (ne_date.year, ne_date.month, ne_date.day)
         self.assertEqual(nepali_date, expected_nepali_date)
 
-    # def test_conversion_to_gregorian(self):
-    #     # Test conversion from Nepali to Gregorian
-    #     nepali_date = (2080, 3, 4)
-    #     expected_gregorian_date = (2023, 6, 19)
-    #     gregorian_date = bs.date.to_datetime_date(*nepali_date)
-    #     self.assertEqual(gregorian_date, expected_gregorian_date)
+    def test_conversion_to_gregorian(self):
+        # Test conversion from Nepali to Gregorian
+        nepali_date = (2080, 3, 4)
+        expected_gregorian_date = (2023, 6, 19)
+        gregorian_date = bs.date.to_datetime_date(*nepali_date)
+        self.assertEqual(gregorian_date, expected_gregorian_date)
 
     def test_month_name(self):
         # Test getting the name of a Nepali month
