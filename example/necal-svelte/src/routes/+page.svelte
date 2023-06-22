@@ -152,10 +152,7 @@
 	function setToday() {
 		const { year, month } = getBS(today.year, today.month, today.date);
 		if (year && month) {
-			// console.log(month)
 			let currentYearMonth = `${year}-${padZero(month)}`;
-			// let previousYearMonth = `${year}-${padZero(month - 1)}`;
-			
 			let previousYearMonth =
 				month == 1
 					? `${year - 1}-${padZero(12)}`
@@ -257,7 +254,6 @@
 		{#each Array(numRows) as _, rowIndex}
 			{#each Array(7) as _, colIndex}
 				{#if rowIndex * 7 + colIndex > 0 && rowIndex * 7 + colIndex <= daysInMonth}
-				<!-- {colIndex}	 -->
 				<Din
 						isCurrent={true}
 						{...dinProps(data, rowIndex * 7 + colIndex - 1)}
@@ -274,17 +270,6 @@
 							/>
 						{/each}
 					{/if}
-				<!-- {:else if numRows == rowIndex + 1 && lastCell > 0}
-				{numRows}{rowIndex}{colIndex}
-				{#each Array(lastCell) as _, dayIndex}
-					<Din
-						isCurrent={false}
-						{...dinProps(
-							upcomingdata.filter((obj) => obj.date === dayIndex+1),
-							0
-						)}
-					/>
-					{/each} -->
 				{/if}
 			{/each}
 		{/each}
