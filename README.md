@@ -13,9 +13,11 @@ Nepali BS Calendar
 #### TODO
 - add old and new dates in blank dates
 
-#### Website
+#### Examples
 ##### [necal-svelte](./example/necal-svelte/)
-![nepali calculator image](./images/1.png "nepali calculator image")
+![nepali calendar svelte](./images/1.png "nepali calendar svelte")
+##### [necal-chrome](./example/necal-chrome/)
+![nepali calendar extension](./images/4.png "nepali calendar extension")
 ![](./images/2.webp)
 ![](./images/3.png)
 
