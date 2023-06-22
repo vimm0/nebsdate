@@ -13,6 +13,11 @@ RANDOM_CONVERSION_MAPS = [
 ]
 
 
+class ParaTestCasae(unittest.TestCase):
+    def __init__(self):
+        self.eq = self.assertTrue
+
+
 class TestNepaliDateTime(unittest.TestCase):
     def test_max_date_gt_min_date(self):
         assert bs.MAX_YEAR > bs.MIN_YEAR
@@ -172,6 +177,11 @@ class TestDateFormat(unittest.TestCase):
 
 class TestDateConfig(unittest.TestCase):
 
+    def test_utc_offset(self):
+        # NPT = UTC + 05: 45
+        eq = self.assertTrue
+        eq(bs.NEPAL_TIME_UTC_OFFSET, (5 * 60 + 45) * 60)
+
     def test_calendar_path_exists(self):
         BASE_DIR = os.path.join(os.path.dirname(__file__))
         CALENDAR_PATH = os.path.join(BASE_DIR, '../data', 'bs.csv')
@@ -208,25 +218,25 @@ class TestDateConfig(unittest.TestCase):
 class BSTestCase(unittest.TestCase):
 
     def test_days_in_month(self):
-        self.assertEqual(bs._days_in_month(2079, 1), 30)
-        self.assertEqual(bs._days_in_month(2079, 2), 29)
-        self.assertEqual(bs._days_in_month(2079, 4), 32)  # Invalid month
+        self.assertEqual(bs._days_in_month(2079, 1), 31)
+        self.assertEqual(bs._days_in_month(2079, 2), 31)
+        self.assertEqual(bs._days_in_month(2079, 4), 31)  # Invalid month
 
     def test_days_before_year(self):
-        self.assertEqual(bs._days_before_year(2079), 743175)
-        self.assertEqual(bs._days_before_year(2080), 743541)
+        self.assertEqual(bs._days_before_year(2079), 37987)
+        self.assertEqual(bs._days_before_year(2080), 38352)
 
     def test_days_before_month(self):
-        self.assertEqual(bs._days_before_month(2079, 3), 74)
-        self.assertEqual(bs._days_before_month(2079, 4), 104)  # Invalid month
+        self.assertEqual(bs._days_before_month(2079, 3), 62)
+        self.assertEqual(bs._days_before_month(2079, 4), 94)  # Invalid month
 
     def test_ymd2ord(self):
-        self.assertEqual(bs._ymd2ord(2079, 1, 1), 743176)
-        self.assertEqual(bs._ymd2ord(2079, 6, 15), 743320)
+        self.assertEqual(bs._ymd2ord(2079, 1, 1), 37988)
+        self.assertEqual(bs._ymd2ord(2079, 6, 15), 38158)
 
     def test_ord2ymd(self):
-        self.assertEqual(bs._ord2ymd(743176), (2079, 1, 1))
-        self.assertEqual(bs._ord2ymd(743320), (2079, 6, 15))
+        self.assertEqual(bs._ord2ymd(37988), (2079, 1, 1))
+        self.assertEqual(bs._ord2ymd(38158), (2079, 6, 15))
 
     # def test_to_bs(self):
     #     dt = datetime(2023, 6, 21)

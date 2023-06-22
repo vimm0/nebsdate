@@ -14,6 +14,7 @@ UTC+05:45
 
 60x5 + 45 = 345 minutes
 345x60 = 20700 seconds
+https://en.wikipedia.org/wiki/Nepal_Standard_Time
 """
 NEPAL_TIME_UTC_OFFSET = 20700  # utc in seconds
 
