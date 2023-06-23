@@ -1,5 +1,17 @@
 from django.db import models
-from django.db.models import fields
+from django.utils.dateparse import date_re
+from django.core.exceptions import ValidationError
+
+def parse_date(value):
+    """Parse a string and return a nepali_datetime_field.date.
+
+    Raise ValueError if the input is well formatted but not a valid date.
+    Return None if the input isn't well formatted.
+    """
+    match = date_re.match(value)
+    if match:
+        kw = {k: int(v) for k, v in match.groupdict().items()}
+        return nepali_datetime.date(**kw)
 
 
 class NepaliCalendar(models.DateField):
@@ -16,4 +28,24 @@ class NepaliCalendar(models.DateField):
         pass
 
     def to_python(self):
-        pass
+        if value is None:
+            return value
+        # if isinstance(value, nepali_datetime.date):
+        #     return value
+        try:
+            parsed = parse_date(value)
+            if parsed is not None:
+                return parsed
+
+        except ValueError:
+            raise ValidationError(
+                self.error_messages['invalid_date'],
+                code='invalid_date',
+                params={'value': value},
+            )
+
+        raise ValidationError(
+            self.error_messages['invalid'],
+            code='invalid',
+            params={'value': value},
+        )
