@@ -2,6 +2,10 @@ from django.db import models
 from django.utils.dateparse import date_re
 from django.core.exceptions import ValidationError
 
+from . import forms
+from ...necal_py import bs
+
+
 def parse_date(value):
     """Parse a string and return a nepali_datetime_field.date.
 
@@ -11,7 +15,7 @@ def parse_date(value):
     match = date_re.match(value)
     if match:
         kw = {k: int(v) for k, v in match.groupdict().items()}
-        return nepali_datetime.date(**kw)
+        return bs.date(**kw)
 
 
 class NepaliCalendar(models.DateField):
@@ -19,19 +23,23 @@ class NepaliCalendar(models.DateField):
     description = "Nepali Calendar Field"
 
     def formfield(self, **kwargs):
-        pass
+        return super().formfield(**{
+            'form_class': forms.NepaliDateField,
+            **kwargs,
+        })
 
     def from_db_value(self, value, expression, connection):
-        pass
+        return bs.date.from_datetime_date(value)
 
     def get_prep_value(self, value):
-        pass
+        value = super().get_prep_value(value)
+        return self.to_python(value).to_datetime_date()
 
-    def to_python(self):
+    def to_python(self, value):
         if value is None:
             return value
-        # if isinstance(value, nepali_datetime.date):
-        #     return value
+        if isinstance(value, bs.date):
+            return value
         try:
             parsed = parse_date(value)
             if parsed is not None:
