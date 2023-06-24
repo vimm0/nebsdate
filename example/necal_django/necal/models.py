@@ -1,9 +1,15 @@
+import sys
+from os import path
+
 from django.db import models
 from django.utils.dateparse import date_re
 from django.core.exceptions import ValidationError
 
-from . import forms
-from ...necal_py import bs
+from necal import forms
+# sys.path.append(path.join(path.dirname(__file__), '../necal_py'))
+sys.path.append('..')
+
+from necal_py import bs
 
 
 def parse_date(value):
@@ -57,3 +63,7 @@ class NepaliCalendar(models.DateField):
             code='invalid',
             params={'value': value},
         )
+
+
+class YourModel(models.Model):
+    date = NepaliCalendar()

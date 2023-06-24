@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from necal.models import YourModel
+
+
+@admin.register(YourModel)
+class YourModelAdmin(admin.ModelAdmin):
+    pass

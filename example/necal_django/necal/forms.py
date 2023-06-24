@@ -1,10 +1,25 @@
+import sys
+from os import path
+
 from django import forms
 from django.core.exceptions import ValidationError
-from ...necal_py import bs
+# sys.path.append(path.join(path.dirname(__file__), '../necal_py'))
+sys.path.append('..')
+
+from necal_py import bs
 
 
 class NepaliDateInput(forms.DateInput):
-    input_type = 'nepali-date'
+    input_type = 'nepali-calendar'
+
+    def get_context(self, name, value, attrs):
+        if isinstance(value, str):
+            try:
+                year, month, day = (int(i) for i in value.split('-'))
+                bs.date(year, month, day)
+            except (ValueError, TypeError):
+                value = None
+        return super().get_context(name, value, attrs)
 
 
 class NepaliDateField(forms.DateField):
