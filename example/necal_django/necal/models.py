@@ -6,6 +6,7 @@ from django.utils.dateparse import date_re
 from django.core.exceptions import ValidationError
 
 from necal import forms
+
 # sys.path.append(path.join(path.dirname(__file__), '../necal_py'))
 sys.path.append('..')
 
@@ -67,3 +68,6 @@ class NepaliCalendar(models.DateField):
 
 class YourModel(models.Model):
     date = NepaliCalendar()
+
+    def __str__(self):
+        return str(self.date)
