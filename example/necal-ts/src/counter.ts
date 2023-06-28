@@ -8,7 +8,7 @@
 //   setCounter(0)
 // }
 
-export function sum(a:any, b:any) {
+export function sum(a:number, b:number): number {
   return a + b;
 }
 
