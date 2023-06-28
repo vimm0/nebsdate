@@ -1,15 +1,15 @@
 import {it, expect} from '@jest/globals';
 import {
-    // parse,
+    parse,
     monthDaysMappings,
     yearDaysMapping,
-    // Language,
+    Language,
     findPassedDays,
     COMPLETED_DAYS,
     TOTAL_DAYS,
     getYearIndex,
-    // mapDaysToDate,
-    // format
+    mapDaysToDate,
+    format
 } from '../src/constant'
 
 
@@ -18,7 +18,7 @@ const Jestha = 1
 const Asar = 2
 // const Shrawan = 3
 const Bhadra = 4
-// const Aswin = 5
+const Aswin = 5
 // const Kartik = 6
 // const Mangsir = 7
 // const Poush = 8
@@ -198,141 +198,141 @@ describe('findPassedDays', () => {
     })
 })
 
-// // describe('mapDaysToDate', () => {
-// //     it('maps given epoch difference to nepali date', () => {
-// //         // First Date
-// //         expect(mapDaysToDate(1)).toEqual({ date: 1, month: 0, year: 2000 })
-// //         // Last Date
-// //         expect(mapDaysToDate(33238)).toEqual({ date: 30, month: 11, year: 2090 })
-// //         expect(
-// //             mapDaysToDate(
-// //                 yearDaysMapping[getYearIndex(2077)][COMPLETED_DAYS] +
-// //                 monthDaysMappings[getYearIndex(2077)][Baisakh][COMPLETED_DAYS] +
-// //                 10
-// //             )
-// //         ).toEqual({ date: 10, month: 0, year: 2077 })
-// //         expect(
-// //             mapDaysToDate(
-// //                 yearDaysMapping[getYearIndex(2054)][COMPLETED_DAYS] +
-// //                 monthDaysMappings[getYearIndex(2054)][Aswin][COMPLETED_DAYS] +
-// //                 24
-// //             )
-// //         ).toEqual({ date: 24, month: 5, year: 2054 })
-// //     })
+describe('mapDaysToDate', () => {
+    it('maps given epoch difference to nepali date', () => {
+        // First Date
+        expect(mapDaysToDate(1)).toEqual({ date: 1, month: 0, year: 2000 })
+        // Last Date
+        expect(mapDaysToDate(33238)).toEqual({ date: 30, month: 11, year: 2090 })
+        expect(
+            mapDaysToDate(
+                yearDaysMapping[getYearIndex(2077)][COMPLETED_DAYS] +
+                monthDaysMappings[getYearIndex(2077)][Baisakh][COMPLETED_DAYS] +
+                10
+            )
+        ).toEqual({ date: 10, month: 0, year: 2077 })
+        expect(
+            mapDaysToDate(
+                yearDaysMapping[getYearIndex(2054)][COMPLETED_DAYS] +
+                monthDaysMappings[getYearIndex(2054)][Aswin][COMPLETED_DAYS] +
+                24
+            )
+        ).toEqual({ date: 24, month: 5, year: 2054 })
+    })
 
-// //     it('throws if the difference is beyond min max boundaries', () => {
-// //         expect(() => mapDaysToDate(-1)).toThrow(
-// //             'The epoch difference is not within the boundaries 1 - 33238'
-// //         )
-// //         expect(() => mapDaysToDate(0)).toThrow(
-// //             'The epoch difference is not within the boundaries 1 - 33238'
-// //         )
-// //         expect(() => mapDaysToDate(33239)).toThrow(
-// //             'The epoch difference is not within the boundaries 1 - 33238'
-// //         )
-// //     })
+    it('throws if the difference is beyond min max boundaries', () => {
+        expect(() => mapDaysToDate(-1)).toThrow(
+            'The epoch difference is not within the boundaries 1 - 33238'
+        )
+        expect(() => mapDaysToDate(0)).toThrow(
+            'The epoch difference is not within the boundaries 1 - 33238'
+        )
+        expect(() => mapDaysToDate(33239)).toThrow(
+            'The epoch difference is not within the boundaries 1 - 33238'
+        )
+    })
 
-// //     describe('format', () => {
-// //         it('Formats the date in English format.', () => {
-// //             // First Date
-// //             expect(
-// //                 format(
-// //                     {
-// //                         year: 2020,
-// //                         month: 0,
-// //                         date: 21,
-// //                         day: 6
-// //                     },
-// //                     'DD/MM/YYYY',
-// //                     Language.en
-// //                 )
-// //             ).toEqual('21/01/2020')
+    describe('format', () => {
+        it('Formats the date in English format.', () => {
+            // First Date
+            expect(
+                format(
+                    {
+                        year: 2020,
+                        month: 0,
+                        date: 21,
+                        day: 6
+                    },
+                    'DD/MM/YYYY',
+                    Language.en
+                )
+            ).toEqual('21/01/2020')
 
-// //             expect(
-// //                 format(
-// //                     {
-// //                         year: 2020,
-// //                         month: 0,
-// //                         date: 21,
-// //                         day: 6
-// //                     },
-// //                     'dd M/D/YYYY',
-// //                     Language.en
-// //                 )
-// //             ).toEqual('Sat 1/21/2020')
+            expect(
+                format(
+                    {
+                        year: 2020,
+                        month: 0,
+                        date: 21,
+                        day: 6
+                    },
+                    'dd M/D/YYYY',
+                    Language.en
+                )
+            ).toEqual('Sat 1/21/2020')
 
-// //             expect(
-// //                 format(
-// //                     {
-// //                         year: 2020,
-// //                         month: 0,
-// //                         date: 21,
-// //                         day: 6
-// //                     },
-// //                     'To\\day is dd M/D/YYYY',
-// //                     Language.en
-// //                 )
-// //             ).toEqual('Today is Sat 1/21/2020')
-// //         })
-// //         it('Formats the date in Nepali format.', () => {
-// //             // First Date
-// //             expect(
-// //                 format(
-// //                     {
-// //                         year: 2020,
-// //                         month: 0,
-// //                         date: 21,
-// //                         day: 6
-// //                     },
-// //                     'DD/MM/YYYY',
-// //                     Language.np
-// //                 )
-// //             ).toEqual('२१/०१/२०२०')
+            expect(
+                format(
+                    {
+                        year: 2020,
+                        month: 0,
+                        date: 21,
+                        day: 6
+                    },
+                    'To\\day is dd M/D/YYYY',
+                    Language.en
+                )
+            ).toEqual('Today is Sat 1/21/2020')
+        })
+        it('Formats the date in Nepali format.', () => {
+            // First Date
+            expect(
+                format(
+                    {
+                        year: 2020,
+                        month: 0,
+                        date: 21,
+                        day: 6
+                    },
+                    'DD/MM/YYYY',
+                    Language.np
+                )
+            ).toEqual('२१/०१/२०२०')
 
-// //             expect(
-// //                 format(
-// //                     {
-// //                         year: 2020,
-// //                         month: 0,
-// //                         date: 21,
-// //                         day: 6
-// //                     },
-// //                     'dd M/D/YYYY',
-// //                     Language.np
-// //                 )
-// //             ).toEqual('शनि १/२१/२०२०')
+            expect(
+                format(
+                    {
+                        year: 2020,
+                        month: 0,
+                        date: 21,
+                        day: 6
+                    },
+                    'dd M/D/YYYY',
+                    Language.np
+                )
+            ).toEqual('शनि १/२१/२०२०')
 
-// //             expect(
-// //                 format(
-// //                     {
-// //                         year: 2020,
-// //                         month: 0,
-// //                         date: 21,
-// //                         day: 6
-// //                     },
-// //                     'To\\day is dd M/D/YYYY',
-// //                     Language.np
-// //                 )
-// //             ).toEqual('Today is शनि १/२१/२०२०')
-// //         })
-// //     })
+            expect(
+                format(
+                    {
+                        year: 2020,
+                        month: 0,
+                        date: 21,
+                        day: 6
+                    },
+                    'To\\day is dd M/D/YYYY',
+                    Language.np
+                )
+            ).toEqual('Today is शनि १/२१/२०२०')
+        })
+    })
 
-// //     describe('parse', () => {
-// //         it('Formats the date in English format.', () => {
-// //             expect(() => parse('')).toThrow('Invalid date format')
-// //             expect(() => parse('asda asdas')).toThrow('Invalid date format')
-// //             expect(parse('2051/02/01')).toEqual({ date: 1, month: 1, year: 2051 })
-// //             expect(parse('2051-02-01')).toEqual({ date: 1, month: 1, year: 2051 })
-// //             expect(parse('2051 02 01')).toEqual({ date: 1, month: 1, year: 2051 })
-// //             expect(parse('01/02/2051')).toEqual({ date: 1, month: 1, year: 2051 })
-// //             expect(parse('01-02-2051')).toEqual({ date: 1, month: 1, year: 2051 })
-// //             expect(parse('02 - 03 - 2051')).toEqual({ date: 2, month: 2, year: 2051 })
-// //             expect(parse('01 02 2051')).toEqual({ date: 1, month: 1, year: 2051 })
-// //             expect(parse('01             02                     2051')).toEqual({
-// //                 date: 1,
-// //                 month: 1,
-// //                 year: 2051
-// //             })
-// //         })
-// //     })
-// // })
+    describe('parse', () => {
+        it('Formats the date in English format.', () => {
+            expect(() => parse('')).toThrow('Invalid date format')
+            expect(() => parse('asda asdas')).toThrow('Invalid date format')
+            expect(parse('2051/02/01')).toEqual({ date: 1, month: 1, year: 2051 })
+            expect(parse('2051-02-01')).toEqual({ date: 1, month: 1, year: 2051 })
+            expect(parse('2051 02 01')).toEqual({ date: 1, month: 1, year: 2051 })
+            expect(parse('01/02/2051')).toEqual({ date: 1, month: 1, year: 2051 })
+            expect(parse('01-02-2051')).toEqual({ date: 1, month: 1, year: 2051 })
+            expect(parse('02 - 03 - 2051')).toEqual({ date: 2, month: 2, year: 2051 })
+            expect(parse('01 02 2051')).toEqual({ date: 1, month: 1, year: 2051 })
+            expect(parse('01             02                     2051')).toEqual({
+                date: 1,
+                month: 1,
+                year: 2051
+            })
+        })
+    })
+})
