@@ -2,7 +2,6 @@
   "name": "necal-ts",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -10,7 +9,10 @@
     "test": "jest"
   },
   "devDependencies": {
+    "@jest/globals": "^29.5.0",
+    "@types/jest": "^29.5.2",
     "jest": "^29.5.0",
+    "ts-jest": "^29.1.0",
     "typescript": "^5.0.2",
     "vite": "^4.3.9"
   }
