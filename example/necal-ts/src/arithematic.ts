@@ -10,3 +10,9 @@ export function sumParam(a: number, b: number, c: number): number {
 export function sumRest(...numbers: number[]): number {
     return numbers.reduce((total, current) => total + current, 0);
 }
+
+type ABC = { a: number; b: number; c: number };
+
+export function sumExample({ a, b, c }: ABC) {
+    return a + b + c;
+}

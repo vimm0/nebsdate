@@ -1,11 +1,12 @@
 import { describe, it, expect } from '@jest/globals';
-import { sum, sumParam, sumRest } from '../src/arithematic'
+import { sum, sumParam, sumRest, sumExample } from '../src/arithematic'
 
 describe('sum function', () => {
   it('should return addition of numbers', () => {
     expect(sum(1, 2)).toBe(3);
     expect(sumParam(1, 2, 3)).toBe(6);
     expect(sumRest(1, 2, 3)).toBe(6);
+    expect(sumExample({a: 1, b: 2, c: 3})).toBe(6);
 
   });
   it('should return the correct sum for multiple numbers', () => {
