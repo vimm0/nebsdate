@@ -22,3 +22,8 @@ export function sumExample({ a, b, c }: ABC) {
 export function multiply(a: number, b: number): number {
     return a * b;
 }
+
+// SUBTRACTION
+export function subtract(a: number, b: number): number {
+    return a - b;
+}

@@ -1,5 +1,5 @@
 import { describe, it, expect } from '@jest/globals';
-import { sum, sumParam, sumRest, sumExample, multiply } from '../src/arithematic'
+import { sum, sumParam, sumRest, sumExample, multiply, subtract } from '../src/arithematic'
 
 describe('sum function', () => {
   it('should return addition of numbers', () => {
@@ -30,5 +30,13 @@ describe('multiply', () => {
     expect(multiply(2, 3)).toBe(6);
     expect(multiply(0, 10)).toBe(0);
     expect(multiply(-5, 4)).toBe(-20);
+  });
+});
+
+describe('subtract', () => {
+  it('should return the difference between two numbers', () => {
+    expect(subtract(5, 3)).toBe(2);
+    expect(subtract(10, 5)).toBe(5);
+    expect(subtract(8, -2)).toBe(10);
   });
 });
