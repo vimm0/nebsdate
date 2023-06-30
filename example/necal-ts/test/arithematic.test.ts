@@ -1,12 +1,12 @@
 import { describe, it, expect } from '@jest/globals';
-import { sum, sumParam, sumRest, sumExample } from '../src/arithematic'
+import { sum, sumParam, sumRest, sumExample, multiply } from '../src/arithematic'
 
 describe('sum function', () => {
   it('should return addition of numbers', () => {
     expect(sum(1, 2)).toBe(3);
     expect(sumParam(1, 2, 3)).toBe(6);
     expect(sumRest(1, 2, 3)).toBe(6);
-    expect(sumExample({a: 1, b: 2, c: 3})).toBe(6);
+    expect(sumExample({ a: 1, b: 2, c: 3 })).toBe(6);
 
   });
   it('should return the correct sum for multiple numbers', () => {
@@ -22,5 +22,13 @@ describe('sum function', () => {
 
   it('should return 0 if no arguments are provided', () => {
     expect(sumRest()).toBe(0);
+  });
+});
+
+describe('multiply', () => {
+  it('should return the product of two numbers', () => {
+    expect(multiply(2, 3)).toBe(6);
+    expect(multiply(0, 10)).toBe(0);
+    expect(multiply(-5, 4)).toBe(-20);
   });
 });

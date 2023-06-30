@@ -1,3 +1,4 @@
+// SUM
 export function sum(a: number, b: number): number {
     return a + b;
 }
@@ -15,4 +16,9 @@ type ABC = { a: number; b: number; c: number };
 
 export function sumExample({ a, b, c }: ABC) {
     return a + b + c;
+}
+
+// MULTIPLICATION
+export function multiply(a: number, b: number): number {
+    return a * b;
 }
