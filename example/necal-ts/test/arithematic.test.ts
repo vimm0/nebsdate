@@ -1,5 +1,5 @@
 import { describe, it, expect } from '@jest/globals';
-import { sum, sumParam, sumRest, sumExample, multiply, subtract } from '../src/arithematic'
+import { sum, sumParam, sumRest, sumExample, multiply, subtract, divide } from '../src/arithematic'
 
 describe('sum function', () => {
   it('should return addition of numbers', () => {
@@ -38,5 +38,17 @@ describe('subtract', () => {
     expect(subtract(5, 3)).toBe(2);
     expect(subtract(10, 5)).toBe(5);
     expect(subtract(8, -2)).toBe(10);
+  });
+});
+
+describe('divide', () => {
+  it('should return the quotient of two numbers', () => {
+    expect(divide(10, 2)).toBe(5);
+    expect(divide(8, 4)).toBe(2);
+    expect(divide(15, 3)).toBe(5);
+  });
+
+  it('should throw an error when dividing by zero', () => {
+    expect(() => divide(10, 0)).toThrowError('Division by zero is not allowed.');
   });
 });
