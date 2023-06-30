@@ -1,5 +1,5 @@
 import { describe, it, expect } from '@jest/globals';
-import { sum, sumParam, sumRest, sumExample, multiply, subtract, divide } from '../src/arithematic'
+import { sum, sumParam, sumRest, sumExample, multiply, subtract, divide, simplifyExpression } from '../src/arithematic'
 
 describe('sum function', () => {
   it('should return addition of numbers', () => {
@@ -50,5 +50,14 @@ describe('divide', () => {
 
   it('should throw an error when dividing by zero', () => {
     expect(() => divide(10, 0)).toThrowError('Division by zero is not allowed.');
+  });
+});
+
+describe('evaluateExpression', () => {
+  it('should correctly evaluate the expression using BODMAS rule', () => {
+    expect(simplifyExpression('2 + 3 * 4')).toBe(14); // Multiplication is evaluated first: 3 * 4 = 12, then addition: 2 + 12 = 14
+    expect(simplifyExpression('(2 + 3) * 4')).toBe(20); // Parentheses enforce the order of evaluation: 2 + 3 = 5, then multiplication: 5 * 4 = 20
+    expect(simplifyExpression('10 / 2 + 5 * 2')).toBe(15); // Division is evaluated first: 10 / 2 = 5, then multiplication: 5 * 2 = 10, and finally addition: 5 + 10 = 15
+    expect(simplifyExpression('(10 / (2 + 3)) * 4')).toBe(8); // Parentheses enforce the order of evaluation: 2 + 3 = 5, then division: 10 / 5 = 2, and finally multiplication: 2 * 4 = 8
   });
 });

@@ -31,8 +31,12 @@ export function subtract(a: number, b: number): number {
 // SUBTRACTION
 export function divide(a: number, b: number): number {
     if (b === 0) {
-      throw new Error('Division by zero is not allowed.');
+        throw new Error('Division by zero is not allowed.');
     }
     return a / b;
-  }
-  
+}
+// SIMPLIFY EXPRESSION
+export function simplifyExpression(expression: string): number {
+    const cleanedExpression = expression.replace(/\s/g, '');
+    return eval(cleanedExpression);
+}
